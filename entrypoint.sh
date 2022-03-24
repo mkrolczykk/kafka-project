@@ -1,7 +1,7 @@
 #!/bin/bash
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-. $SCRIPT_DIR/kafka-cluster/kafka.topics
+. "$SCRIPT_DIR"/kafka-cluster/kafka.topics
 
 # WARNING: Script kafka-related properties must be the same as set in ./kafka-docker-compose/docker-compose.yml config file.
 
