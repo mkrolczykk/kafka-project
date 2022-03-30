@@ -3,20 +3,21 @@ package io.github.githubAccountsApp;
 import io.github.githubAccountsApp.accountsConsumer.AccountsConsumer;
 import io.github.githubAccountsApp.commitsProducer.CommitsProducer;
 import io.github.githubAccountsApp.githubClient.GithubClientService;
+import io.github.githubAccountsApp.time.Interval;
+import io.github.githubAccountsApp.time.TimeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.Properties;
 
 class GithubAccountsApplication {
-    private final GithubClientService githubService;
     private final AccountsConsumer consumer;
     private final CommitsProducer producer;
+    private final GithubClientService githubService;
 
     private static volatile boolean stopPipelineFlag = false;
     private static final Logger logger = LoggerFactory.getLogger(GithubAccountsApplication.class);
@@ -72,10 +73,10 @@ class GithubAccountsApplication {
     public void runPipeline() {
         consumer
             .poll()
-            .flatMap(account ->  {
-                // System.out.println(LocalDateTime.now());
-                return githubService.getUserCommits(account.getUser(), LocalDateTime.parse("2022-03-28T13:24:50.000", DateTimeFormatter.ISO_DATE_TIME));
-            }).subscribe(producer::push);
+            .flatMap(account ->
+                    githubService.getUserCommits(account.getUser(), TimeService.calculateInterval(Objects.requireNonNull(Interval.valueOfLabel(account.getInterval()))))
+            )
+            .subscribe(producer::push);
     }
 
     private void closeApp() {
