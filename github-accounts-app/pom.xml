@@ -13,11 +13,40 @@
 
     <!--  Module properties  -->
     <properties>
+        <spring.webflux.version>5.3.17</spring.webflux.version>
+        <reactor.core.version>3.4.16</reactor.core.version>
+        <reactor.netty.version>1.0.13</reactor.netty.version>
+        <netty.resolver.dns.version>4.1.75.Final</netty.resolver.dns.version>
         <!-- build properties -->
         <maven.assembly.plugin.version>3.3.0</maven.assembly.plugin.version>
     </properties>
 
-    <dependencies></dependencies>
+    <dependencies>
+        <!-- Spring WebClient -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webflux</artifactId>
+            <version>${spring.webflux.version}</version>
+        </dependency>
+        <!-- Reactor-core -->
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
+            <version>${reactor.core.version}</version>
+        </dependency>
+        <!-- Reactor-netty -->
+        <dependency>
+            <groupId>io.projectreactor.netty</groupId>
+            <artifactId>reactor-netty</artifactId>
+            <version>${reactor.netty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns-native-macos</artifactId>
+            <version>${netty.resolver.dns.version}</version>
+            <classifier>osx-x86_64</classifier>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>

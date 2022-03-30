@@ -5,26 +5,30 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.githubAccountsApp.accountsConsumer.projection.Account;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 import java.util.*;
 
 public class AccountsConsumer {
-    private static final Logger logger = LoggerFactory.getLogger(AccountsConsumer.class);
     private final String bootstrapServers;
     private final String groupId;
+    private final Duration pollDuration;
     private final Set<String> subscribedTopics;
     private final ObjectMapper objectMapper;
     private final KafkaConsumer<String, String> consumer;
 
-    public AccountsConsumer(final String bootstrapServers, final String groupId) {
+    private static final Logger logger = LoggerFactory.getLogger(AccountsConsumer.class);
+
+    public AccountsConsumer(final String bootstrapServers, final String groupId, final Duration pollDurationTime) {
         this.bootstrapServers = bootstrapServers;
         this.groupId = groupId;
+        this.pollDuration = pollDurationTime;
         this.subscribedTopics = new HashSet<>();
 
         this.objectMapper = new ObjectMapper();
@@ -50,38 +54,35 @@ public class AccountsConsumer {
         subscribedTopics.add(topic);
     }
 
-    public void subscribe(final Set<String> topics) {
+    private void subscribe(final Set<String> topics) {
         consumer.subscribe(topics);
         subscribedTopics.addAll(topics);
     }
 
-    public List<Account> poll(Duration duration) {
-        List<Account> accounts = new ArrayList<>();
-        ConsumerRecords<String, String> records = consumer.poll(duration);
-
-        for (ConsumerRecord<String, String> record : records) {
-            try {
-                logger.info(
-                        "Processing record from partition " + record.partition() +
-                        ", with offset: " + record.offset() +
-                        ", key: " + record.key() +
-                        ", value: " + record.value()
-                );
-                accounts.add(fromJsonStringToAccount(record.value()));
-            } catch (JsonProcessingException e) {
-                logger.warn("JsonProcessingException while converting record '" + record + "'");
-            }
-        }
-
-        return accounts;
+    public Flux<Account> poll() {
+        return Flux
+            .fromIterable(consumer.poll(pollDuration))
+            .doOnNext(record -> logger.info(
+            "Got record from partition " + record.partition() +
+                    ", with offset: " + record.offset() +
+                    ", key: " + record.key() +
+                    ", value: " + record.value()))
+            .map(ConsumerRecord::value)
+            .flatMap(this::fromJsonStringToAccount);
     }
 
-    private Account fromJsonStringToAccount(String jsonString) throws JsonProcessingException {
-        return objectMapper.readValue(jsonString, Account.class);
+    private Mono<Account> fromJsonStringToAccount(String jsonString) {
+            try {
+                return Mono.just(objectMapper.readValue(jsonString, Account.class));
+            } catch (JsonProcessingException e) {
+                logger.warn("JsonProcessingException while converting record '" + jsonString + "'");
+                return Mono.empty();
+            }
     }
 
     public void close() {
-        consumer.close();
+        logger.info("Ending consumer...");
+        this.consumer.close();
     }
 
     @Override

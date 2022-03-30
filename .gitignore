@@ -25,3 +25,4 @@ fabric.properties
 
 # ignore local enviroment containers data
 kafka-docker-compose/containers-data/
+temp
