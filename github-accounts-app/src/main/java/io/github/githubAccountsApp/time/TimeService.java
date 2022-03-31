@@ -29,16 +29,20 @@ public class TimeService {
             case MONTH:
                 cal.add(Calendar.MONTH, -1);                    // last month
                 return convertFromDateToLocalDateTime(cal.getTime());
-            default:                                                    // set current time
-                LocalDateTime defaultTime = LocalDateTime.now();
-                logger.warn("Given unit '" + range + "' is not supported!");
-                logger.warn("Set interval=" + defaultTime + " instead of '" + range + "'");
-                return defaultTime;
+            default:
+                cal.add(Calendar.YEAR, 10);                     // if not match, set non existing interval to skip any further actions
+                try {
+                    throw new UnsupportedIntervalException("UnsupportedIntervalException: Given interval value is not supported!");
+                } catch (UnsupportedIntervalException e) {
+                    logger.warn(e.getMessage());
+                }
+                return convertFromDateToLocalDateTime(cal.getTime());
         }
     }
 
     public static LocalDateTime convertFromDateToLocalDateTime(Date toConvert) {
-        return toConvert.toInstant()
+        return toConvert
+            .toInstant()
             .atZone(ZoneId.systemDefault())
             .toLocalDateTime();
     }

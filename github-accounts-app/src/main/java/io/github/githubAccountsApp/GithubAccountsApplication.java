@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.Duration;
-import java.util.Objects;
 import java.util.Properties;
 
 class GithubAccountsApplication {
@@ -74,7 +73,7 @@ class GithubAccountsApplication {
         consumer
             .poll()
             .flatMap(account ->
-                    githubService.getUserCommits(account.getUser(), TimeService.calculateInterval(Objects.requireNonNull(Interval.valueOfLabel(account.getInterval()))))
+                    githubService.getUserCommits(account.getUser(), TimeService.calculateInterval(Interval.valueOfLabel(account.getInterval())))
             )
             .subscribe(producer::push);
     }

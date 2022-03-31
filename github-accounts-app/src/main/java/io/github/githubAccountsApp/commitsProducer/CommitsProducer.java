@@ -55,7 +55,7 @@ public class CommitsProducer {
         String commitAsString;
         try {
             commitAsString = objectMapper.writeValueAsString(commit);
-            producer.send(new ProducerRecord<>(topic, commit.getSha(), commitAsString));
+            producer.send(new ProducerRecord<>(topic, commit.getAuthorLogin(), commitAsString));
         } catch (JsonProcessingException e) {
             logger.warn("JsonProcessingException while converting '" + commit + "' to string!");
         }

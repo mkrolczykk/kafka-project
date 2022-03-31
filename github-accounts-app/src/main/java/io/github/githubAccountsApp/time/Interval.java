@@ -8,7 +8,8 @@ public enum Interval {
     TWELVE_HOURS("12h"),
     DAY("1d"),
     WEEK("1w"),
-    MONTH("1m");
+    MONTH("1m"),
+    DEFAULT("unknown");
 
     private final String label;
 
@@ -18,6 +19,6 @@ public enum Interval {
 
     public static Interval valueOfLabel(final String label) {
         for (Interval e : values()) if (e.label.equals(label)) return e;
-        return null;
+        return Interval.valueOfLabel("unknown");
     }
 }
