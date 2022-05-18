@@ -66,7 +66,6 @@ public class KafkaStreamsApplication {
         /*
          * Top 5 contributors by number of commits stream
         */
-        // TODO -> TUTAJ COS SIE WYSYPUJE, NAPRAWIC, mozliwe ze nie dziala temu ze kafka nie jest wlaczona ( nie wlaczalem)
         AbstractKafkaStream topKCommittersStream =
                 new TopKContributorsByNumberOfCommits(
                         Integer.parseInt(props.getProperty("topK.contributors.k.value")),
@@ -75,7 +74,7 @@ public class KafkaStreamsApplication {
                         baseProperties()
                 );
         topKCommittersStream.start();
-        // -----------------------------------------------------------
+
         streams.add(topKCommittersStream);
         LOG.info("Top K committers stream has been launched successfully");
 

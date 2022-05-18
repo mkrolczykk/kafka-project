@@ -65,7 +65,7 @@ bash "./kafka-connect/filestream-sink-connector.sh" \
     $KAFKA_CONNECT_VOLUME_ROOT_DIR \
     $KAFKA_CONNECT_HOST \
     $KAFKA_CONNECT_PORT \
-    "$GITHUB_METRICS_TOP5_CONTR_BY_COMMITS.json" \
+    "$GITHUB_METRICS_TOP5_CONTR_BY_COMMITS.txt" \
     $GITHUB_METRICS_TOP5_CONTR_BY_COMMITS
 
 # Total number of commits
@@ -74,7 +74,7 @@ bash "./kafka-connect/filestream-sink-connector.sh" \
     $KAFKA_CONNECT_VOLUME_ROOT_DIR \
     $KAFKA_CONNECT_HOST \
     $KAFKA_CONNECT_PORT \
-    "$GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITS.json" \
+    "$GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITS.txt" \
     $GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITS
 
 # Total number of commiters
@@ -83,7 +83,7 @@ bash "./kafka-connect/filestream-sink-connector.sh" \
     $KAFKA_CONNECT_VOLUME_ROOT_DIR \
     $KAFKA_CONNECT_HOST \
     $KAFKA_CONNECT_PORT \
-    "$GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITERS.json" \
+    "$GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITERS.txt" \
     $GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITERS
 
 # Total number of commits for each programming language
@@ -92,7 +92,7 @@ bash "./kafka-connect/filestream-sink-connector.sh" \
     $KAFKA_CONNECT_VOLUME_ROOT_DIR \
     $KAFKA_CONNECT_HOST \
     $KAFKA_CONNECT_PORT \
-    "$GITHUB_METRICS_TOTAL_LANGUAGE.json" \
+    "$GITHUB_METRICS_TOTAL_LANGUAGE.txt" \
     $GITHUB_METRICS_TOTAL_LANGUAGE
 
 # Start pipeline
