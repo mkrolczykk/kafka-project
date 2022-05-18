@@ -26,12 +26,16 @@ CONNECTOR_NAME="$SINK_FILE_NAME-sink-file-connector"
 TASKS_MAX=1
 FILE_PATH="$VOLUME_ROOT_DIR/$SINK_FILE_NAME"
 
-shift 5
-TOPIC=""
-for topic in "$@"
-do
-    TOPIC+="${topic},"
-done
+# TODO -> fix implementation for more than one topic
+#shift 5
+#TOPIC=""
+#for topic in "$@"
+#do
+#    TOPIC+="${topic}," TODO -> remove the ',' after last topic
+#done
+
+# for one input topic
+TOPIC=$6
 
 # curl request properties
 CURL_REQUEST_WAIT_TIME=10

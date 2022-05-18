@@ -3,7 +3,7 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 . "$SCRIPT_DIR"/kafka-cluster/kafka.topics
 
-# WARNING: Script kafka-related properties must be the same as set in ./kafka-docker-compose/docker-compose.yml config file.
+# WARNING: Script kafka-related properties must be the same as set in ./docker-compose/docker-compose.yml config file.
 
 # Kafka-brokers properties
 BROKER_1="broker1"
@@ -27,19 +27,19 @@ ADDITIONAL_KSQL_DB_SERVERS=1
 SERVICES_LOAD_WAIT_TIME=30
 
 # Start Kafka infrastructure
-docker-compose -f ./kafka-docker-compose/docker-compose.yml up --scale additional-ksqldb-server=$ADDITIONAL_KSQL_DB_SERVERS -d
+docker-compose -f ./docker-compose/docker-compose.yml up --scale additional-ksqldb-server=$ADDITIONAL_KSQL_DB_SERVERS -d
 
 # Wait untill all services will be ready to use
 echo "INFO: Waiting for all services to be ready to use..."
 sleep $SERVICES_LOAD_WAIT_TIME
 
-running="$(docker-compose -f ./kafka-docker-compose/docker-compose.yml ps --services --filter "status=running")"
-services="$(docker-compose -f ./kafka-docker-compose/docker-compose.yml ps --services)"
+running="$(docker-compose -f ./docker-compose/docker-compose.yml ps --services --filter "status=running")"
+services="$(docker-compose -f ./docker-compose/docker-compose.yml ps --services)"
 if [ "$running" != "$services" ]; then
     echo "ERROR: Following services failed to start:" 
     comm -13 <(sort <<<"$running") <(sort <<<"$services")
     # stop running containers
-    docker-compose -f ./kafka-docker-compose/docker-compose.yml down
+    docker-compose -f ./docker-compose/docker-compose.yml down
     exit 1
 else
     echo "INFO: All required services are running"
@@ -96,4 +96,4 @@ bash "./kafka-connect/filestream-sink-connector.sh" \
     $GITHUB_METRICS_TOTAL_LANGUAGE
 
 # Start pipeline
-cp ./github-accounts.json ./kafka-docker-compose/containers-data/kafka-connect/data/github-accounts-unprocessed-files
+cp ./github-accounts.json ./docker-compose/containers-data/kafka-connect/data/github-accounts-unprocessed-files

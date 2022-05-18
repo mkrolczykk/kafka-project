@@ -42,29 +42,29 @@ docker exec -it $BROKER kafka-topics \
     --partitions 3 \
     --replication-factor 3
 
-# Github metrics with total number of commits topic
-docker exec -it $BROKER kafka-topics \
-    --create \
-    --bootstrap-server $BOOTSTRAP_SERVER \
-    --topic $GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITS \
-    --partitions 3 \
-    --replication-factor 3
-
-# Github metrics with total number of commiters topic
-docker exec -it $BROKER kafka-topics \
-    --create \
-    --bootstrap-server $BOOTSTRAP_SERVER \
-    --topic $GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITERS \
-    --partitions 3 \
-    --replication-factor 3
-
-# Github metrics with total number of commits for each programming language topic
-docker exec -it $BROKER kafka-topics \
-    --create \
-    --bootstrap-server $BOOTSTRAP_SERVER \
-    --topic $GITHUB_METRICS_TOTAL_LANGUAGE \
-    --partitions 3 \
-    --replication-factor 3
+## Github metrics with total number of commits topic
+#docker exec -it $BROKER kafka-topics \
+#    --create \
+#    --bootstrap-server $BOOTSTRAP_SERVER \
+#    --topic $GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITS \
+#    --partitions 3 \
+#    --replication-factor 3
+#
+## Github metrics with total number of commiters topic
+#docker exec -it $BROKER kafka-topics \
+#    --create \
+#    --bootstrap-server $BOOTSTRAP_SERVER \
+#    --topic $GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITERS \
+#    --partitions 3 \
+#    --replication-factor 3
+#
+## Github metrics with total number of commits for each programming language topic
+#docker exec -it $BROKER kafka-topics \
+#    --create \
+#    --bootstrap-server $BOOTSTRAP_SERVER \
+#    --topic $GITHUB_METRICS_TOTAL_LANGUAGE \
+#    --partitions 3 \
+#    --replication-factor 3
 
 # TODO -> Suggest four new metrics and implement them,
 #         be ready to explain their value (Optionally,

@@ -10,29 +10,28 @@
         <version>0.11-SNAPSHOT</version>
     </parent>
 
-    <artifactId>github-accounts-app</artifactId>
+    <artifactId>kafka-stream-metrics</artifactId>
+
+    <properties>
+        <github.accounts.app.version>0.11-SNAPSHOT</github.accounts.app.version>
+    </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webflux</artifactId>
-            <version>${spring.webflux.version}</version>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-streams</artifactId>
+            <version>${kafka.streams.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.projectreactor</groupId>
-            <artifactId>reactor-core</artifactId>
-            <version>${reactor.core.version}</version>
+            <groupId>com.github.mkrolczyk12.kafka</groupId>
+            <artifactId>github-accounts-app</artifactId>
+            <version>${github.accounts.app.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.projectreactor.netty</groupId>
-            <artifactId>reactor-netty</artifactId>
-            <version>${reactor.netty.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-resolver-dns-native-macos</artifactId>
-            <version>${netty.resolver.dns.version}</version>
-            <classifier>osx-x86_64</classifier>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-streams-test-utils</artifactId>
+            <version>${kafka.streams.test.utils.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -48,7 +47,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.github.mkrolczyk12.kafka.githubAccountsApp.GithubAccountsApplication</mainClass>
+                            <mainClass>com.github.mkrolczyk12.kafka.metrics.KafkaStreamsApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -64,5 +63,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

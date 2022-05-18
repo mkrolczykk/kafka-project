@@ -3,17 +3,30 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <modules>
+        <module>github-accounts-app</module>
+        <module>kafka-stream-metrics</module>
+        <!--        <module>modules-integration-tests</module>-->
+    </modules>
 
     <groupId>com.github.mkrolczyk12.kafka</groupId>
     <artifactId>kafka-project</artifactId>
-    <version>0.11-DEVELOPMENT</version>
+    <version>0.11-SNAPSHOT</version>
+
     <name>kafka-project</name>
+    <description>Apache Kafka project</description>
 
     <packaging>pom</packaging>
 
     <!--  Project properties  -->
     <properties>
         <kafka.version>3.1.0</kafka.version>
+        <kafka.streams.version>3.1.0</kafka.streams.version>
+        <kafka.streams.test.utils.version>3.1.0</kafka.streams.test.utils.version>
+        <spring.webflux.version>5.3.17</spring.webflux.version>
+        <reactor.core.version>3.4.16</reactor.core.version>
+        <reactor.netty.version>1.0.13</reactor.netty.version>
+        <netty.resolver.dns.version>4.1.75.Final</netty.resolver.dns.version>
         <log4j.version>2.0.0-alpha5</log4j.version>
         <jackson.version>2.13.0</jackson.version>
         <JUnit.version>5.8.2</JUnit.version>
@@ -22,14 +35,10 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
         <!-- build properties -->
-        <maven.surefire.plugin.version>3.0.0-M5</maven.surefire.plugin.version>
+        <maven.surefire.plugin.version>3.0.0-M4</maven.surefire.plugin.version>
+        <maven.assembly.plugin.version>3.3.0</maven.assembly.plugin.version>
         <maven.jaCoCo.plugin.version>0.8.7</maven.jaCoCo.plugin.version>
     </properties>
-
-    <!--  Project modules  -->
-    <modules>
-        <module>github-accounts-app</module>
-    </modules>
 
     <dependencies>
         <!-- kafka client -->
@@ -37,6 +46,42 @@
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
             <version>${kafka.version}</version>
+        </dependency>
+        <!-- kafka streams -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-streams</artifactId>
+            <version>${kafka.streams.version}</version>
+        </dependency>
+        <!-- kafka-streams-test-utils -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-streams-test-utils</artifactId>
+            <version>${kafka.streams.test.utils.version}</version>
+        </dependency>
+        <!-- Spring WebClient -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webflux</artifactId>
+            <version>${spring.webflux.version}</version>
+        </dependency>
+        <!-- Reactor-core -->
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-core</artifactId>
+            <version>${reactor.core.version}</version>
+        </dependency>
+        <!-- Reactor-netty -->
+        <dependency>
+            <groupId>io.projectreactor.netty</groupId>
+            <artifactId>reactor-netty</artifactId>
+            <version>${reactor.netty.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns-native-macos</artifactId>
+            <version>${netty.resolver.dns.version}</version>
+            <classifier>osx-x86_64</classifier>
         </dependency>
         <!-- for logging purposes -->
         <dependency>
