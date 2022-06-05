@@ -1,6 +1,6 @@
-GITHUB_ACCOUNTS="github-accounts"
-GITHUB_COMMITS="github-commits"
-GITHUB_METRICS_TOP5_CONTR_BY_COMMITS="github-metrics-top5-contributors-by-commits"
-GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITS="github-metrics-total-number-of-commits"
-GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITERS="github-metrics-total-number-of-commiters"
-GITHUB_METRICS_TOTAL_LANGUAGE="github-metrics-total-language"
+GITHUB_ACCOUNTS=githubAccounts
+GITHUB_COMMITS=githubCommits
+GITHUB_METRICS_TOP5_CONTR_BY_COMMITS=githubMetricsTop5ContributorsByCommits
+GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITS=GITHUBMETRICSTOTALNUMBEROFCOMMITS
+GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITERS=githubMetricsTotalNumberOfCommiters
+GITHUB_METRICS_TOTAL_LANGUAGE=githubMetricsTotalLanguage

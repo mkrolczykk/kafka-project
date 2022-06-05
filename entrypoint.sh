@@ -48,6 +48,9 @@ fi
 # Create required topics
 bash "./kafka-cluster/kafka-create-topics.sh" $BROKER_1 $BOOTSTRAP_SERVER_1
 
+# Create KSQL pipelines
+bash "./kafka-sql-metrics/kafka-sql.sh" "ksqldb-cli" $BOOTSTRAP_SERVER_1
+
 # Create Github accounts source connector
 bash "./kafka-connect/spooldir-json-file-source-connector.sh" \
     $KAFKA_CONNECT_CONTAINER_NAME \
@@ -77,23 +80,31 @@ bash "./kafka-connect/filestream-sink-connector.sh" \
     "$GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITS.txt" \
     $GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITS
 
-# Total number of commiters
-bash "./kafka-connect/filestream-sink-connector.sh" \
-    $KAFKA_CONNECT_CONTAINER_NAME \
-    $KAFKA_CONNECT_VOLUME_ROOT_DIR \
-    $KAFKA_CONNECT_HOST \
-    $KAFKA_CONNECT_PORT \
-    "$GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITERS.txt" \
-    $GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITERS
+## Total number of commiters
+#bash "./kafka-connect/filestream-sink-connector.sh" \
+#    $KAFKA_CONNECT_CONTAINER_NAME \
+#    $KAFKA_CONNECT_VOLUME_ROOT_DIR \
+#    $KAFKA_CONNECT_HOST \
+#    $KAFKA_CONNECT_PORT \
+#    "$GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITERS.txt" \
+#    $GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITERS
 
-# Total number of commits for each programming language
-bash "./kafka-connect/filestream-sink-connector.sh" \
-    $KAFKA_CONNECT_CONTAINER_NAME \
-    $KAFKA_CONNECT_VOLUME_ROOT_DIR \
-    $KAFKA_CONNECT_HOST \
-    $KAFKA_CONNECT_PORT \
-    "$GITHUB_METRICS_TOTAL_LANGUAGE.txt" \
-    $GITHUB_METRICS_TOTAL_LANGUAGE
+## Total number of commits for each programming language
+#bash "./kafka-connect/filestream-sink-connector.sh" \
+#    $KAFKA_CONNECT_CONTAINER_NAME \
+#    $KAFKA_CONNECT_VOLUME_ROOT_DIR \
+#    $KAFKA_CONNECT_HOST \
+#    $KAFKA_CONNECT_PORT \
+#    "$GITHUB_METRICS_TOTAL_LANGUAGE.txt" \
+#    $GITHUB_METRICS_TOTAL_LANGUAGE
+
+# Run producers and consumers apps
+# java -jar github-accounts-app/target/github-accounts-app-0.11-SNAPSHOT-jar-with-dependencies.jar &
+# java -jar kafka-stream-metrics/target/kafka-stream-metrics-0.11-SNAPSHOT-jar-with-dependencies.jar &
+
+sleep 5
 
 # Start pipeline
 cp ./github-accounts.json ./docker-compose/containers-data/kafka-connect/data/github-accounts-unprocessed-files
+
+exit 0

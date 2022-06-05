@@ -22,8 +22,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
-// TODO -> trzeba zrobic stream ktory bedzie odbieral top5 contributorow (przerobic ksql skrypt bo tam sie
-// nie da wybrac top 5 wartosci
 public class TopKContributorsByNumberOfCommits extends AbstractKafkaStream {
     private static final Logger LOG = LoggerFactory.getLogger(TopKContributorsByNumberOfCommits.class);
 
