@@ -22,6 +22,8 @@ KAFKA_CONNECT_PORT="8083"
 
 # # KSQL_DB properties
 ADDITIONAL_KSQL_DB_SERVERS=1
+KSQL_DB_HOST="localhost"
+KSQL_DB_PORT="8088"
 
 # Script properties
 SERVICES_LOAD_WAIT_TIME=30
@@ -49,7 +51,7 @@ fi
 bash "./kafka-cluster/kafka-create-topics.sh" $BROKER_1 $BOOTSTRAP_SERVER_1
 
 # Create KSQL pipelines
-bash "./kafka-sql-metrics/kafka-sql.sh" "ksqldb-cli" $BOOTSTRAP_SERVER_1
+bash "./kafka-sql-metrics/kafka-sql.sh" "ksqldb-cli" $KSQL_DB_HOST $KSQL_DB_PORT
 
 # Create Github accounts source connector
 bash "./kafka-connect/spooldir-json-file-source-connector.sh" \

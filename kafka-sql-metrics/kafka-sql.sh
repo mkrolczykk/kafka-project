@@ -4,19 +4,23 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 . "$SCRIPT_DIR"/../kafka-cluster/kafka.topics
 
 # Script properties
-REQUIRED_INPUT_VALUES=2
+REQUIRED_INPUT_VALUES=3
 
 if (($# < $REQUIRED_INPUT_VALUES))
 then
     echo "ERROR: missing required arguments"
     echo "INFO: The number of arguments should be $REQUIRED_INPUT_VALUES"
-    echo "INFO: Try again with command 'bash $0 <KSQL_CLI_NAME> <KSQL_BOOTSTRAP_SERVER>'"
+    echo "INFO: Try again with command 'bash $0 <KSQL_CLI_NAME> <HOSTNAME> <PORT>'"
     exit 1
 fi
 
 # ksqldb container properties
 CONTAINER_NAME=$1
-KSQL_BOOTSTRAP_SERVER=$2
+
+# API properties
+HOSTNAME=$2
+PORT=$3
+KSQL_BOOTSTRAP_SERVER="http://${HOSTNAME}:${PORT}"
 
 # When curl fail function
 curl_fail_handler() {
