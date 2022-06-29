@@ -82,31 +82,31 @@ bash "./kafka-connect/filestream-sink-connector.sh" \
     "$GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITS.txt" \
     $GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITS
 
-## Total number of commiters
-#bash "./kafka-connect/filestream-sink-connector.sh" \
-#    $KAFKA_CONNECT_CONTAINER_NAME \
-#    $KAFKA_CONNECT_VOLUME_ROOT_DIR \
-#    $KAFKA_CONNECT_HOST \
-#    $KAFKA_CONNECT_PORT \
-#    "$GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITERS.txt" \
-#    $GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITERS
+# Total number of commiters
+bash "./kafka-connect/filestream-sink-connector.sh" \
+    $KAFKA_CONNECT_CONTAINER_NAME \
+    $KAFKA_CONNECT_VOLUME_ROOT_DIR \
+    $KAFKA_CONNECT_HOST \
+    $KAFKA_CONNECT_PORT \
+    "$GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITERS.txt" \
+    $GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITERS
 
-## Total number of commits for each programming language
-#bash "./kafka-connect/filestream-sink-connector.sh" \
-#    $KAFKA_CONNECT_CONTAINER_NAME \
-#    $KAFKA_CONNECT_VOLUME_ROOT_DIR \
-#    $KAFKA_CONNECT_HOST \
-#    $KAFKA_CONNECT_PORT \
-#    "$GITHUB_METRICS_TOTAL_LANGUAGE.txt" \
-#    $GITHUB_METRICS_TOTAL_LANGUAGE
+# Total number of commits for each programming language
+bash "./kafka-connect/filestream-sink-connector.sh" \
+    $KAFKA_CONNECT_CONTAINER_NAME \
+    $KAFKA_CONNECT_VOLUME_ROOT_DIR \
+    $KAFKA_CONNECT_HOST \
+    $KAFKA_CONNECT_PORT \
+    "$GITHUB_METRICS_TOTAL_LANGUAGE.txt" \
+    $GITHUB_METRICS_TOTAL_LANGUAGE
 
 # Run producers and consumers apps
 # java -jar github-accounts-app/target/github-accounts-app-0.11-SNAPSHOT-jar-with-dependencies.jar &
 # java -jar kafka-stream-metrics/target/kafka-stream-metrics-0.11-SNAPSHOT-jar-with-dependencies.jar &
 
-sleep 5
+sleep 15 # wait for producers and consumers to be up and running
 
 # Start pipeline
-cp ./github-accounts.json ./docker-compose/containers-data/kafka-connect/data/github-accounts-unprocessed-files
+cp ./github-accounts.json ./docker-compose/containers-data/kafka-connect/data/githubAccounts-unprocessed-files
 
 exit 0
