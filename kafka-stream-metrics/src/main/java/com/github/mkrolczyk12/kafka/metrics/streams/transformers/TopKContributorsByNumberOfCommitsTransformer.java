@@ -46,8 +46,8 @@ public class TopKContributorsByNumberOfCommitsTransformer implements Transformer
         for (int i = 0; i < K && i < contributors.size(); i++) {
             stringBuilder
                     .append("{")
-                    .append("\"account\": \"" + contributors.get(i).key + "\",")
-                    .append("\"totalCommits\": \"" + contributors.get(i).value.value() + "\"")
+                    .append("\"account\":\"" + contributors.get(i).key + "\",")
+                    .append("\"totalCommits\":\"" + contributors.get(i).value.value() + "\"")
                     .append("}");
             if (i != (K - 1) && i != contributors.size() - 1) {
                 stringBuilder.append("\n");

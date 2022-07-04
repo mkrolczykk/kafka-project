@@ -2,6 +2,7 @@ package com.github.mkrolczyk12.kafka.metrics;
 
 import com.github.mkrolczyk12.kafka.metrics.streams.AbstractKafkaStream;
 import com.github.mkrolczyk12.kafka.metrics.streams.TopKContributorsByNumberOfCommits;
+import com.github.mkrolczyk12.kafka.metrics.streams.TotalCommitsPerLanguage;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsConfig;
@@ -74,9 +75,21 @@ public class KafkaStreamsApplication {
                         baseProperties()
                 );
         topKCommittersStream.start();
+        /*
+         * Total commits per language stream
+         */
+        AbstractKafkaStream totalCommitsPerLanguageStream =
+                new TotalCommitsPerLanguage(
+                        props.getProperty("total.commits.per.language.input.topic"),
+                        props.getProperty("total.commits.per.language.output.topic"),
+                        baseProperties()
+                );
+        totalCommitsPerLanguageStream.start();
 
         streams.add(topKCommittersStream);
         LOG.info("Top K committers stream has been launched successfully");
+        streams.add(totalCommitsPerLanguageStream);
+        LOG.info("Total commits per language stream has been launched successfully");
 
         addPipelineShutdownHook();
     }

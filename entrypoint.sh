@@ -70,7 +70,7 @@ bash "./kafka-connect/filestream-sink-connector.sh" \
     $KAFKA_CONNECT_VOLUME_ROOT_DIR \
     $KAFKA_CONNECT_HOST \
     $KAFKA_CONNECT_PORT \
-    "$GITHUB_METRICS_TOP5_CONTR_BY_COMMITS.txt" \
+    "githubMetricsTop5ContrByCommits.txt" \
     $GITHUB_METRICS_TOP5_CONTR_BY_COMMITS
 
 # Total number of commits
@@ -79,7 +79,7 @@ bash "./kafka-connect/filestream-sink-connector.sh" \
     $KAFKA_CONNECT_VOLUME_ROOT_DIR \
     $KAFKA_CONNECT_HOST \
     $KAFKA_CONNECT_PORT \
-    "$GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITS.txt" \
+    "githubMetricsTotalNumberOfCommits.txt" \
     $GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITS
 
 # Total number of commiters
@@ -88,7 +88,7 @@ bash "./kafka-connect/filestream-sink-connector.sh" \
     $KAFKA_CONNECT_VOLUME_ROOT_DIR \
     $KAFKA_CONNECT_HOST \
     $KAFKA_CONNECT_PORT \
-    "$GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITERS.txt" \
+    "githubMetricsTotalNumberOfCommiters.txt" \
     $GITHUB_METRICS_TOTAL_NUMBER_OF_COMMITERS
 
 # Total number of commits for each programming language
@@ -97,7 +97,7 @@ bash "./kafka-connect/filestream-sink-connector.sh" \
     $KAFKA_CONNECT_VOLUME_ROOT_DIR \
     $KAFKA_CONNECT_HOST \
     $KAFKA_CONNECT_PORT \
-    "$GITHUB_METRICS_TOTAL_LANGUAGE.txt" \
+    "githubMetricsTotalLanguage.txt" \
     $GITHUB_METRICS_TOTAL_LANGUAGE
 
 # Run producers and consumers apps
