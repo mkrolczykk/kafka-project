@@ -66,8 +66,6 @@ docker exec -it $BROKER kafka-topics \
     --partitions 3 \
     --replication-factor 3
 
-# TODO -> Suggest four new metrics and implement them,
-#         be ready to explain their value (Optionally,
-#         but we  recommend to implement at least 4 metrics)
+# TODO -> Suggest four new metrics and implement them (Optionally)
 
 exit 0
