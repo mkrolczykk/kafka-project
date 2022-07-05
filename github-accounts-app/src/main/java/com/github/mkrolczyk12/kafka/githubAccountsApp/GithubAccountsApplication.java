@@ -13,7 +13,7 @@ import java.io.InputStream;
 import java.time.Duration;
 import java.util.Properties;
 
-class GithubAccountsApplication {
+public class GithubAccountsApplication {
     private final AccountsConsumer consumer;
     private final CommitsProducer producer;
     private final GithubClientService githubService;
@@ -21,7 +21,7 @@ class GithubAccountsApplication {
     private static volatile boolean stopPipelineFlag = false;
     private static final Logger LOG = LoggerFactory.getLogger(GithubAccountsApplication.class);
 
-    GithubAccountsApplication(final Properties props) {
+    public GithubAccountsApplication(final Properties props) {
         this.consumer = new AccountsConsumer(
                 props.getProperty("kafka.bootstrap.servers"),
                 props.getProperty("github.accounts.group.id"),

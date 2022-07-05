@@ -29,7 +29,7 @@
             <groupId>org.springframework.kafka</groupId>
             <artifactId>spring-kafka-test</artifactId>
             <version>${spring.kafka.test.utils.version}</version>
-            <scope>test</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -42,6 +42,11 @@
             <artifactId>awaitility</artifactId>
             <version>${org.awaitility.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${jUnit.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mock-server</groupId>
