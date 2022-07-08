@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.ZonedDateTime;
 
-class CommitCommiterInfo {
+public class CommitCommiterInfo {
     @JsonProperty("name")
     private String name;
     @JsonProperty("date")
@@ -14,6 +14,11 @@ class CommitCommiterInfo {
     }
 
     CommitCommiterInfo(final ZonedDateTime date) {
+        this.date = date;
+    }
+
+    public CommitCommiterInfo(final String name, final ZonedDateTime date) {
+        this.name = name;
         this.date = date;
     }
 

@@ -34,6 +34,12 @@
             <version>${netty.resolver.dns.version}</version>
             <classifier>osx-x86_64</classifier>
         </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-test</artifactId>
+            <version>${reactor.core.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

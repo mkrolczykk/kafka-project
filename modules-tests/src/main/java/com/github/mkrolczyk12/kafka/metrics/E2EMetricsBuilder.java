@@ -15,14 +15,22 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 
-public class E2EMetricsBuilder {
+class E2EMetricsBuilder {
     private static final Logger LOG = LoggerFactory.getLogger(E2EMetricsBuilder.class);
 
     private final static Properties props = E2EProperties.getModuleProperties();
 
-    private final static String bootstrapServers = props.getProperty("kafka.bootstrap.servers");
+    private final String bootstrapServers;
 
-    KafkaProducer<String, String> createCommitsProducer() {
+    public E2EMetricsBuilder() {
+        this.bootstrapServers = props.getProperty("kafka.bootstrap.servers");
+    }
+
+    public E2EMetricsBuilder(final String bootstrapServers) {
+        this.bootstrapServers = bootstrapServers;
+    }
+
+    KafkaProducer<String, String> createAccountsProducer() {
         final Properties properties = new Properties();
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
@@ -104,11 +112,11 @@ public class E2EMetricsBuilder {
     }
 
     GithubAccountsApplication runGithubAccountsApp() {
-        return new GithubAccountsApplication(props);
+        return new GithubAccountsApplication(bootstrapServers, props);
     }
 
     List<AbstractKafkaStream> runKafkaStreamsApp() {
-        KafkaStreamsApplication kafkaStreamsApp = new KafkaStreamsApplication(props);
+        KafkaStreamsApplication kafkaStreamsApp = new KafkaStreamsApplication(bootstrapServers, props);
         kafkaStreamsApp.launchStreams();
         return kafkaStreamsApp.getStreams();
     }

@@ -12,9 +12,9 @@ public class SearchCommitsQueryModel {
     @JsonProperty("items")
     private List<SearchCommitsQueryItem> items;
 
-    SearchCommitsQueryModel() {}
+    public SearchCommitsQueryModel() {}
 
-    SearchCommitsQueryModel(final Integer totalCount, final List<SearchCommitsQueryItem> items) {
+    public SearchCommitsQueryModel(final Integer totalCount, final List<SearchCommitsQueryItem> items) {
         this.totalCount = totalCount;
         this.items = items;
     }

@@ -9,7 +9,7 @@ public class Account {
 
     public Account() {}
 
-    Account(final String user, final String interval) {
+    public Account(final String user, final String interval) {
         this.user = user;
         this.interval = interval;
     }

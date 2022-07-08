@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
-class CommitAuthorInfo {
+public class CommitAuthorInfo {
     @JsonProperty("name")
     private String name;
     @JsonProperty("date")
@@ -15,6 +15,11 @@ class CommitAuthorInfo {
     }
 
     CommitAuthorInfo(final ZonedDateTime date) {
+        this.date = date;
+    }
+
+    public CommitAuthorInfo(final String name, final ZonedDateTime date) {
+        this.name = name;
         this.date = date;
     }
 

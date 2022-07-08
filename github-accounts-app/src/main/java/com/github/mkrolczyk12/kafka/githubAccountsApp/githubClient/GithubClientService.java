@@ -6,7 +6,6 @@ import com.github.mkrolczyk12.kafka.githubAccountsApp.githubClient.projection.Se
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -18,21 +17,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GithubClientService {
-    private final WebClient githubClient;
-    private final String GITHUB_API_HEADER = "application/vnd.github.cloak-preview";
+    private static final Logger LOG = LoggerFactory.getLogger(GithubClientService.class);
 
-    private static final Logger logger = LoggerFactory.getLogger(GithubClientService.class);
+    private final WebClient githubClient;
 
     public GithubClientService(final String baseUrl) {
         this.githubClient = WebClient.builder().baseUrl(baseUrl).build();
     }
 
     public Flux<KafkaCommitRecord> getUserCommits(final String user, final LocalDateTime sinceDate) {
+        String GITHUB_API_HEADER = "application/vnd.github.cloak-preview";
         return githubClient
             .get()
             .uri(uriBuilder ->
                 uriBuilder
-                    .path("search/commits")
+                    .path("/search/commits")
                     .queryParam("q", String.format(
                             "author:%s+author-date:>%s", user, sinceDate.format(DateTimeFormatter.ISO_DATE_TIME)
                     ))
@@ -55,10 +54,14 @@ public class GithubClientService {
             .baseUrl(commitData.getRepository().getLanguagesUrl())
             .build()
             .get()
-            .accept(MediaType.valueOf(GITHUB_API_HEADER))
-            .exchangeToMono(response -> {
-                if (response.statusCode() == HttpStatus.OK) return response.bodyToMono(new ParameterizedTypeReference<Map<String, Long>>() {});
-                return Mono.just(new HashMap<String, Long>() {});
+            .exchange()
+            .flatMap(r -> {
+                if (r.statusCode().is2xxSuccessful()) return r.bodyToMono(new ParameterizedTypeReference<Map<String, Long>>() {});
+                else return Mono.just(new HashMap<String, Long>());
+            })
+            .onErrorResume(e -> {
+                LOG.warn("Unexpected error occurred while fetching languages", e);
+                return Mono.just(new HashMap<>());
             })
             .map(languages -> {
                 if (!languages.isEmpty())

@@ -16,9 +16,9 @@ public class SearchCommitsQueryItem {
     private Repository repository;
     private String language;
 
-    SearchCommitsQueryItem() {}
+    public SearchCommitsQueryItem() {}
 
-    SearchCommitsQueryItem(final String sha, final Commit commit, final Author author, final Committer committer, final Repository repository, final String language) {
+    public SearchCommitsQueryItem(final String sha, final Commit commit, final Author author, final Committer committer, final Repository repository, final String language) {
         this.sha = sha;
         this.commit = commit;
         this.author = author;

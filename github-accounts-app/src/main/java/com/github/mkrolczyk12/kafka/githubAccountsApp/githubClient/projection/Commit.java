@@ -1,13 +1,13 @@
 package com.github.mkrolczyk12.kafka.githubAccountsApp.githubClient.projection;
 
-class Commit {
+public class Commit {
     private CommitAuthorInfo author;
     private CommitCommiterInfo committer;
     private String message;
 
     public Commit() {}
 
-    Commit(final CommitAuthorInfo author, final CommitCommiterInfo committer, final String message) {
+    public Commit(final CommitAuthorInfo author, final CommitCommiterInfo committer, final String message) {
         this.author = author;
         this.committer = committer;
         this.message = message;

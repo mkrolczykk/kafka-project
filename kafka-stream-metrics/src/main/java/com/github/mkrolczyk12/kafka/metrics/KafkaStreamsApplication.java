@@ -20,9 +20,17 @@ public class KafkaStreamsApplication {
 
     private final Properties props;
 
+    private final String bootstrapServers;
+
     private final List<AbstractKafkaStream> streams = new ArrayList<>();
 
     public KafkaStreamsApplication(final Properties props) {
+        this.bootstrapServers = props.getProperty("kafka.bootstrap.servers");
+        this.props = props;
+    }
+
+    public KafkaStreamsApplication(final String bootstrapServers, final Properties props) {
+        this.bootstrapServers = bootstrapServers;
         this.props = props;
     }
 
@@ -51,13 +59,13 @@ public class KafkaStreamsApplication {
     }
 
     // TODO -> change to be more flexible
-    private Properties baseProperties() {
+    private Properties baseProperties(final String bootstrapServers) {
         Properties properties = new Properties();
-        properties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, props.getProperty("kafka.bootstrap.servers"));
+        properties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         properties.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
         properties.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-        properties.put(StreamsConfig.PROCESSING_GUARANTEE_CONFIG, StreamsConfig.EXACTLY_ONCE_V2);
+        properties.put(StreamsConfig.PROCESSING_GUARANTEE_CONFIG, StreamsConfig.EXACTLY_ONCE);
         properties.put(StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG, "0");
 
         return properties;
@@ -68,22 +76,22 @@ public class KafkaStreamsApplication {
          * Top 5 contributors by number of commits stream
         */
         AbstractKafkaStream topKCommittersStream =
-                new TopKContributorsByNumberOfCommits(
-                        Integer.parseInt(props.getProperty("topK.contributors.k.value")),
-                        props.getProperty("topK.contributors.input.topic"),
-                        props.getProperty("topK.contributors.output.topic"),
-                        baseProperties()
-                );
+            new TopKContributorsByNumberOfCommits(
+                Integer.parseInt(props.getProperty("topK.contributors.k.value")),
+                props.getProperty("topK.contributors.input.topic"),
+                props.getProperty("topK.contributors.output.topic"),
+                baseProperties(this.bootstrapServers)
+            );
         topKCommittersStream.start();
         /*
          * Total commits per language stream
-         */
+        */
         AbstractKafkaStream totalCommitsPerLanguageStream =
-                new TotalCommitsPerLanguage(
-                        props.getProperty("total.commits.per.language.input.topic"),
-                        props.getProperty("total.commits.per.language.output.topic"),
-                        baseProperties()
-                );
+            new TotalCommitsPerLanguage(
+                props.getProperty("total.commits.per.language.input.topic"),
+                props.getProperty("total.commits.per.language.output.topic"),
+                baseProperties(this.bootstrapServers)
+            );
         totalCommitsPerLanguageStream.start();
 
         streams.add(topKCommittersStream);

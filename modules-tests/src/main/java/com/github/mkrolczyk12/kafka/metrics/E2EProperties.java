@@ -16,10 +16,10 @@ public final class E2EProperties {
         Properties properties = new Properties();
 
         try {
-            InputStream input = KafkaStreamsApplication.class.getClassLoader().getResourceAsStream("config.properties");
+            InputStream input = E2EProperties.class.getClassLoader().getResourceAsStream("config.test.properties");
 
             if (input == null) {
-                LOG.error("Failed to load 'config.properties' file!");
+                LOG.error("Failed to load 'config.test.properties' file!");
                 System.exit(-1);
             }
 

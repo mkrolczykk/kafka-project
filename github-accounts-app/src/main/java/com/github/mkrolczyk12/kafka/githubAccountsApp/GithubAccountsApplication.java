@@ -23,13 +23,30 @@ public class GithubAccountsApplication {
 
     public GithubAccountsApplication(final Properties props) {
         this.consumer = new AccountsConsumer(
-                props.getProperty("kafka.bootstrap.servers"),
-                props.getProperty("github.accounts.group.id"),
-                Duration.ofMillis(Long.parseLong(props.getProperty("poll.duration.millis.time")))
+            props.getProperty("kafka.bootstrap.servers"),
+            props.getProperty("github.accounts.group.id"),
+            Duration.ofMillis(Long.parseLong(props.getProperty("poll.duration.millis.time")))
         );
         this.producer = new CommitsProducer(
-                props.getProperty("kafka.bootstrap.servers"),
-                props.getProperty("github.commits.topic")
+            props.getProperty("kafka.bootstrap.servers"),
+            props.getProperty("github.commits.topic")
+        );
+        this.githubService = new GithubClientService(props.getProperty("github.api.base.url"));
+
+        consumer.subscribe(props.getProperty("github.accounts.topic"));
+
+        addPipelineShutdownHook();
+    }
+
+    public GithubAccountsApplication(final String bootstrapServers, final Properties props) {
+        this.consumer = new AccountsConsumer(
+            bootstrapServers,
+            props.getProperty("github.accounts.group.id"),
+            Duration.ofMillis(Long.parseLong(props.getProperty("poll.duration.millis.time")))
+        );
+        this.producer = new CommitsProducer(
+            bootstrapServers,
+            props.getProperty("github.commits.topic")
         );
         this.githubService = new GithubClientService(props.getProperty("github.api.base.url"));
 
@@ -78,7 +95,7 @@ public class GithubAccountsApplication {
             .subscribe(producer::push);
     }
 
-    private void closeApp() {
+    public void closeApp() {
         LOG.info("Ending application...");
         consumer.close();
         producer.close();

@@ -2,7 +2,7 @@ package com.github.mkrolczyk12.kafka.githubAccountsApp.githubClient.projection;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-class Committer {
+public class Committer {
     @JsonProperty("login")
     private String login;
     @JsonProperty("id")
@@ -18,7 +18,7 @@ class Committer {
 
     public Committer() {}
 
-    Committer(final String login, final Integer id, final String nodeId, final String reposUrl, final String type, final Boolean siteAdmin) {
+    public Committer(final String login, final Integer id, final String nodeId, final String reposUrl, final String type, final Boolean siteAdmin) {
         this.login = login;
         this.id = id;
         this.nodeId = nodeId;

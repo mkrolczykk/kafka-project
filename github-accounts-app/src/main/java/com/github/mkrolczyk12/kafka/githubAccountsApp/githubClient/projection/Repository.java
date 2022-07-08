@@ -20,7 +20,7 @@ public class Repository {
 
     public Repository() {}
 
-    Repository(final Integer id, final String nodeId, final String name, final String fullName, final Boolean isPrivate, final String description, final String languagesUrl) {
+    public Repository(final Integer id, final String nodeId, final String name, final String fullName, final Boolean isPrivate, final String description, final String languagesUrl) {
         this.id = id;
         this.nodeId = nodeId;
         this.name = name;

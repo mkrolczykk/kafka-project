@@ -55,29 +55,29 @@ public class TopKContributorsByNumberOfCommits extends AbstractKafkaStream {
         StreamsBuilder streamsBuilder = new StreamsBuilder();
 
         StoreBuilder<KeyValueStore<String, String>> keyValueStoreBuilder =
-                Stores.keyValueStoreBuilder(
-                        Stores.persistentKeyValueStore(DEDUPLICATE_COMMITS_STORE),
-                        Serdes.String(), Serdes.String()
-                );
+            Stores.keyValueStoreBuilder(
+                Stores.persistentKeyValueStore(DEDUPLICATE_COMMITS_STORE),
+                Serdes.String(), Serdes.String()
+            );
         streamsBuilder.addStateStore(keyValueStoreBuilder);
 
         KStream<String, String> topKCommittersStream = streamsBuilder
-                .stream(inputTopic, Consumed.with(Serdes.String(), Serdes.String()))
-                .transform(() -> new DeduplicateRecordsByKeyTransformer(DEDUPLICATE_COMMITS_STORE), DEDUPLICATE_COMMITS_STORE)
-                .selectKey((key, value) -> {
-                    CommitRecord kafkaCommitRecord = null;
-                    try {
-                        kafkaCommitRecord = objectMapper.readValue(value, CommitRecord.class);
-                    } catch (Exception e) {
-                        LOG.warn("Cannot read the value - data may be malformed", e);
-                    }
-                    return kafkaCommitRecord != null ? kafkaCommitRecord.getAuthorLogin() : null;
-                })
-                .groupByKey()
-                .count(Materialized.as(TOTAL_COMMITS_BY_AUTHOR_STORE))
-                .toStream()
-                .transform(
-                        () -> new TopKContributorsByNumberOfCommitsTransformer(K, TOTAL_COMMITS_BY_AUTHOR_STORE), TOTAL_COMMITS_BY_AUTHOR_STORE);
+            .stream(inputTopic, Consumed.with(Serdes.String(), Serdes.String()))
+            .transform(() -> new DeduplicateRecordsByKeyTransformer(DEDUPLICATE_COMMITS_STORE), DEDUPLICATE_COMMITS_STORE)
+            .selectKey((key, value) -> {
+                CommitRecord kafkaCommitRecord = null;
+                try {
+                    kafkaCommitRecord = objectMapper.readValue(value, CommitRecord.class);
+                } catch (Exception e) {
+                    LOG.warn("Cannot read the value - data may be malformed", e);
+                }
+                return kafkaCommitRecord != null ? kafkaCommitRecord.getAuthorLogin() : null;
+            })
+            .groupByKey()
+            .count(Materialized.as(TOTAL_COMMITS_BY_AUTHOR_STORE))
+            .toStream()
+            .transform(
+                () -> new TopKContributorsByNumberOfCommitsTransformer(K, TOTAL_COMMITS_BY_AUTHOR_STORE), TOTAL_COMMITS_BY_AUTHOR_STORE);
 
         topKCommittersStream.to(outputTopic, Produced.with(Serdes.String(), Serdes.String()));
 
