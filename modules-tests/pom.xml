@@ -13,7 +13,6 @@
     <artifactId>modules-tests</artifactId>
 
     <properties>
-        <itest-name-template>**/*Spec.java</itest-name-template>
         <github.accounts.app.version>0.11-SNAPSHOT</github.accounts.app.version>
         <kafka.streams.metric.app.version>0.11-SNAPSHOT</kafka.streams.metric.app.version>
     </properties>
@@ -46,7 +45,12 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>${jUnit.version}</version>
+            <version>${junit.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-commons</artifactId>
+            <version>${junit.platform.common.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mock-server</groupId>
@@ -86,7 +90,7 @@
                         </goals>
                         <configuration>
                             <sources>
-                                <source>src/integration-test/java</source>
+                                <source>src/main/java</source>
                             </sources>
                         </configuration>
                     </execution>
@@ -99,7 +103,7 @@
                         <configuration>
                             <resources>
                                 <resource>
-                                    <directory>src/integration-test/resources</directory>
+                                    <directory>src/main/resources</directory>
                                 </resource>
                             </resources>
                         </configuration>
@@ -108,6 +112,7 @@
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${maven.failsafe.plugin.version}</version>
                 <configuration>
@@ -115,7 +120,6 @@
                         <include>${itest-name-template}</include>
                     </includes>
                 </configuration>
-
                 <executions>
                     <execution>
                         <id>integration-test</id>

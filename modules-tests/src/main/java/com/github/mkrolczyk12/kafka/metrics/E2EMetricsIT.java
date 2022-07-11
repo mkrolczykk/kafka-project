@@ -31,8 +31,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DirtiesContext
-public class E2EMetricsSpec {
-    private static final Logger LOG = LoggerFactory.getLogger(E2EMetricsSpec.class);
+public class E2EMetricsIT {
+    private static final Logger LOG = LoggerFactory.getLogger(E2EMetricsIT.class);
 
     private final static Properties props = E2EProperties.getModuleProperties();
 
