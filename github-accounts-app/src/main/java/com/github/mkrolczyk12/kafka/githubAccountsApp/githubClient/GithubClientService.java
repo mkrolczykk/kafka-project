@@ -25,6 +25,10 @@ public class GithubClientService {
         this.githubClient = WebClient.builder().baseUrl(baseUrl).build();
     }
 
+    public GithubClientService(final WebClient.Builder webClientBuilder, final String baseUrl) {
+        this.githubClient = webClientBuilder.baseUrl(baseUrl).build();
+    }
+
     public Flux<KafkaCommitRecord> getUserCommits(final String user, final LocalDateTime sinceDate) {
         String GITHUB_API_HEADER = "application/vnd.github.cloak-preview";
         return githubClient
@@ -48,7 +52,7 @@ public class GithubClientService {
             .map(SearchCommitsQueryItem::toKafkaCommitRecord);
     }
 
-    private Mono<String> getCommitLanguage(final SearchCommitsQueryItem commitData) {
+    public Mono<String> getCommitLanguage(final SearchCommitsQueryItem commitData) {
         return WebClient
             .builder()
             .baseUrl(commitData.getRepository().getLanguagesUrl())
