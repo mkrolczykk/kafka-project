@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class TopKContributorsByNumberOfCommitsTransformer implements Transformer<String, Long, KeyValue<String, String>> {
+public final class TopKContributorsByNumberOfCommitsTransformer implements Transformer<String, Long, KeyValue<String, String>> {
     private static final Logger LOG = LoggerFactory.getLogger(TopKContributorsByNumberOfCommitsTransformer.class);
 
     private final int K;

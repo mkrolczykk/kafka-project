@@ -7,7 +7,7 @@ import org.apache.kafka.streams.state.KeyValueStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DeduplicateRecordsByKeyTransformer implements Transformer<String, String, KeyValue<String, String>> {
+public final class DeduplicateRecordsByKeyTransformer implements Transformer<String, String, KeyValue<String, String>> {
     private static final Logger LOG = LoggerFactory.getLogger(DeduplicateRecordsByKeyTransformer.class);
 
     private final String storeName;

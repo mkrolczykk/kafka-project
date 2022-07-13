@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
-public class TopKContributorsByNumberOfCommits extends AbstractKafkaStream {
+public final class TopKContributorsByNumberOfCommits extends AbstractKafkaStream {
     private static final Logger LOG = LoggerFactory.getLogger(TopKContributorsByNumberOfCommits.class);
 
     private static final String DEDUPLICATE_COMMITS_STORE = "top5-committers-distinct-commits";

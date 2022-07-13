@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
-public class TotalCommitsPerLanguage extends AbstractKafkaStream {
+public final class TotalCommitsPerLanguage extends AbstractKafkaStream {
     private static final Logger LOG = LoggerFactory.getLogger(TotalCommitsPerLanguage.class);
 
     private static final String DEDUPLICATE_COMMITS_STORE = "total-commits-per-language-distinct-commits";
