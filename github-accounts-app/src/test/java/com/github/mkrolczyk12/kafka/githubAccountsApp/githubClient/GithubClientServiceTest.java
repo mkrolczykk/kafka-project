@@ -130,10 +130,8 @@ class GithubClientServiceTest {
 
     @Test
     @DisplayName("Should return 'Unknown language' as language")
-    void getCommitLanguage_noLanguage() throws JsonProcessingException {
+    void getCommitLanguage_noLanguage() {
         final String expectedLang = "Unknown language";
-        final Map<String, Long> expectedLangResp = new HashMap<String, Long>() {};
-        final ClientResponse resp = prepareLanguagesListGithubResponse(expectedLangResp);
 
         SearchCommitsQueryItem item =
             new SearchCommitsQueryItem(

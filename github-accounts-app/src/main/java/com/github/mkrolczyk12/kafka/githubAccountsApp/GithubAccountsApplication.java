@@ -17,6 +17,7 @@ public class GithubAccountsApplication {
     private final AccountsConsumer consumer;
     private final CommitsProducer producer;
     private final GithubClientService githubService;
+    private final TimeService timeService;
 
     private static volatile boolean stopPipelineFlag = false;
     private static final Logger LOG = LoggerFactory.getLogger(GithubAccountsApplication.class);
@@ -32,6 +33,7 @@ public class GithubAccountsApplication {
             props.getProperty("github.commits.topic")
         );
         this.githubService = new GithubClientService(props.getProperty("github.api.base.url"));
+        this.timeService = new TimeService();
 
         consumer.subscribe(props.getProperty("github.accounts.topic"));
 
@@ -49,6 +51,7 @@ public class GithubAccountsApplication {
             props.getProperty("github.commits.topic")
         );
         this.githubService = new GithubClientService(props.getProperty("github.api.base.url"));
+        this.timeService = new TimeService();
 
         consumer.subscribe(props.getProperty("github.accounts.topic"));
 
@@ -90,7 +93,7 @@ public class GithubAccountsApplication {
         consumer
             .poll()
             .flatMap(account ->
-                    githubService.getUserCommits(account.getUser(), TimeService.calculateInterval(Interval.valueOfLabel(account.getInterval())))
+                    githubService.getUserCommits(account.getUser(), timeService.calculateInterval(Interval.valueOfLabel(account.getInterval())))
             )
             .subscribe(producer::push);
     }

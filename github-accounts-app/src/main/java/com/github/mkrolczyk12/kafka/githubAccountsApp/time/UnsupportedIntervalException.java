@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class UnsupportedIntervalException extends Exception {
-    private static final Logger logger = LoggerFactory.getLogger(UnsupportedIntervalException.class);
+    private static final Logger LOG = LoggerFactory.getLogger(UnsupportedIntervalException.class);
 
     public UnsupportedIntervalException(final String message) {
         super(message);

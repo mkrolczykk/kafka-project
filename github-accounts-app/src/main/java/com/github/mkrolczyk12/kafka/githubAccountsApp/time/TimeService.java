@@ -9,7 +9,8 @@ import java.util.Date;
 
 public class TimeService {
     private static final Logger logger = LoggerFactory.getLogger(TimeService.class);
-    public static LocalDateTime calculateInterval(final Interval range) {
+
+    public LocalDateTime calculateInterval(final Interval range) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());   // set current time
 
@@ -40,7 +41,7 @@ public class TimeService {
         }
     }
 
-    public static LocalDateTime convertFromDateToLocalDateTime(Date toConvert) {
+    public static LocalDateTime convertFromDateToLocalDateTime(final Date toConvert) {
         return toConvert
             .toInstant()
             .atZone(ZoneId.systemDefault())

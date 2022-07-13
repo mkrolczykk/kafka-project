@@ -18,7 +18,7 @@ public class CommitsProducer {
     private final String bootstrapServers;
     private final String topic;
     private final ObjectMapper objectMapper;
-    KafkaProducer<String, String> producer;
+    private KafkaProducer<String, String> producer;
 
     private static final Logger logger = LoggerFactory.getLogger(CommitsProducer.class);
 
