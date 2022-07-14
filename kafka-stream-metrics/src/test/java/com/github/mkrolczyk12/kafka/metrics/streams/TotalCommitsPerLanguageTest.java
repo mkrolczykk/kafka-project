@@ -100,7 +100,7 @@ class TotalCommitsPerLanguageTest extends AbstractBaseStream {
 
     @Test
     @DisplayName("Should ignore duplicated records")
-    void duplicateCommitsAreCountedAsOne() throws JsonProcessingException {
+    void ignoreDuplicatedRecords() throws JsonProcessingException {
         final KafkaCommitRecord commit =
             new KafkaCommitRecord.KafkaCommitRecordBuilder()
                 .sha("sha1")

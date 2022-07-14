@@ -40,21 +40,21 @@ public final class TopKContributorsByNumberOfCommitsTransformer implements Trans
         while (iterator.hasNext()) contributors.add(iterator.next());
 
         contributors.sort(Comparator.comparing(o ->
-                ((KeyValue<String, ValueAndTimestamp<Long>>) o).value.value()).reversed());
+            ((KeyValue<String, ValueAndTimestamp<Long>>) o).value.value()).reversed());
 
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("{\"topContributors\":[");
         for (int i = 0; i < K && i < contributors.size(); i++) {
-            stringBuilder
-                    .append("{")
-                    .append("\"account\":\"" + contributors.get(i).key + "\",")
-                    .append("\"totalCommits\":\"" + contributors.get(i).value.value() + "\"")
-                    .append("}");
-            if (i != (K - 1) && i != contributors.size() - 1) {
-                stringBuilder.append("\n");
-            }
+            stringBuilder.append(
+                "{" +
+                "\"account\":\"" + contributors.get(i).key + "\"," +
+                "\"totalCommits\":\"" + contributors.get(i).value.value() + "\"" +
+                "}");
+            if (i != (K - 1) && i != contributors.size() - 1) stringBuilder.append(",");
         }
+        stringBuilder.append("]}");
 
-        return new KeyValue<>("top5-committers",  stringBuilder.toString());
+        return new KeyValue<>("top-committers",  stringBuilder.toString());
     }
 
     @Override

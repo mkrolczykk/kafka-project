@@ -226,9 +226,12 @@ public class E2EMetricsIT {
     private void assertTopKCommittersMetric(final GithubAccountsApplication pipelineRef) {
         assertThat(pollRecords(pipelineRef, topKCommittersConsumer))
             .containsSequence(
-                "{\"account\":\"mockUser3\",\"totalCommits\":\"3\"}\n" +
-                "{\"account\":\"mockUser1\",\"totalCommits\":\"2\"}"
-        );
+                "{\"topContributors\":[" +
+                    "{\"account\":\"mockUser3\",\"totalCommits\":\"3\"}," +
+                    "{\"account\":\"mockUser1\",\"totalCommits\":\"2\"}," +
+                    "{\"account\":\"mockUser2\",\"totalCommits\":\"1\"}" +
+                "]}"
+            );
     }
 
     private void assertUsedLanguagesMetric(final GithubAccountsApplication pipelineRef) {
