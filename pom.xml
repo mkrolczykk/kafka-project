@@ -9,18 +9,18 @@
         <module>modules-tests</module>
     </modules>
 
+    <name>kafka-project</name>
+    <description>Apache Kafka project</description>
+
     <groupId>com.github.mkrolczyk12.kafka</groupId>
     <artifactId>kafka-project</artifactId>
     <version>0.11-SNAPSHOT</version>
-
-    <name>kafka-project</name>
-    <description>Apache Kafka project</description>
 
     <packaging>pom</packaging>
 
     <!--  Project properties  -->
     <properties>
-        <itest-name-template>**/*IT.java</itest-name-template>
+        <!-- dependencies versions -->
         <kafka.version>2.4.1</kafka.version>
         <kafka.streams.version>2.4.1</kafka.streams.version>
         <kafka.streams.test.utils.version>2.4.1</kafka.streams.test.utils.version>
@@ -40,6 +40,9 @@
         <org.awaitility.version>4.0.2</org.awaitility.version>
         <mockserver.netty.version>5.9.0</mockserver.netty.version>
         <mockserver.client.java.version>5.9.0</mockserver.client.java.version>
+
+        <!-- env properties -->
+        <itest-name-template>**/*IT.java</itest-name-template>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
         <!-- build properties -->
@@ -57,43 +60,6 @@
             <artifactId>kafka-clients</artifactId>
             <version>${kafka.version}</version>
             <scope>compile</scope>
-        </dependency>
-        <!-- kafka streams -->
-        <dependency>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka-streams</artifactId>
-            <version>${kafka.streams.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <!-- kafka-streams-test-utils -->
-        <dependency>
-            <groupId>org.apache.kafka</groupId>
-            <artifactId>kafka-streams-test-utils</artifactId>
-            <version>${kafka.streams.test.utils.version}</version>
-        </dependency>
-        <!-- Spring WebClient -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webflux</artifactId>
-            <version>${spring.webflux.version}</version>
-        </dependency>
-        <!-- Reactor-core -->
-        <dependency>
-            <groupId>io.projectreactor</groupId>
-            <artifactId>reactor-core</artifactId>
-            <version>${reactor.core.version}</version>
-        </dependency>
-        <!-- Reactor-netty -->
-        <dependency>
-            <groupId>io.projectreactor.netty</groupId>
-            <artifactId>reactor-netty</artifactId>
-            <version>${reactor.netty.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.netty</groupId>
-            <artifactId>netty-resolver-dns-native-macos</artifactId>
-            <version>${netty.resolver.dns.version}</version>
-            <classifier>osx-x86_64</classifier>
         </dependency>
         <!-- for logging purposes -->
         <dependency>

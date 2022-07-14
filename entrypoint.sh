@@ -107,6 +107,6 @@ bash "./kafka-connect/filestream-sink-connector.sh" \
 sleep 15 # wait for producers and consumers to be up and running
 
 # Start pipeline
-cp ./github-accounts.json ./docker-compose/containers-data/kafka-connect/data/githubAccounts-unprocessed-files
+# cp ./github-accounts.json ./docker-compose/containers-data/kafka-connect/data/githubAccounts-unprocessed-files
 
 exit 0
