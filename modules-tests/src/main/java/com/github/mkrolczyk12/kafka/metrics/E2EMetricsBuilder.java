@@ -31,6 +31,10 @@ class E2EMetricsBuilder {
     }
 
     KafkaProducer<String, String> createAccountsProducer() {
+        return createAccountsProducer(this.bootstrapServers);
+    }
+
+    KafkaProducer<String, String> createAccountsProducer(final String bootstrapServers) {
         final Properties properties = new Properties();
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
@@ -42,6 +46,10 @@ class E2EMetricsBuilder {
     }
 
     KafkaConsumer<String, String> createCommitsConsumer() {
+        return createCommitsConsumer(this.bootstrapServers);
+    }
+
+    KafkaConsumer<String, String> createCommitsConsumer(final String bootstrapServers) {
         Properties properties = new Properties();
         properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
@@ -55,7 +63,7 @@ class E2EMetricsBuilder {
         return consumer;
     }
 
-    KafkaConsumer<String, String> createTotalCommitsConsumer() {
+    KafkaConsumer<String, String> createTotalCommitsConsumer(final String bootstrapServers) {
         Properties properties = new Properties();
         properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
@@ -69,7 +77,7 @@ class E2EMetricsBuilder {
         return consumer;
     }
 
-    KafkaConsumer<String, String> createTotalCommittersNumberConsumer() {
+    KafkaConsumer<String, String> createTotalCommittersNumberConsumer(final String bootstrapServers) {
         Properties properties = new Properties();
         properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
@@ -112,6 +120,10 @@ class E2EMetricsBuilder {
     }
 
     GithubAccountsApplication runGithubAccountsApp() {
+        return new GithubAccountsApplication(bootstrapServers, props);
+    }
+
+    GithubAccountsApplication runGithubAccountsApp(final String bootstrapServers) {
         return new GithubAccountsApplication(bootstrapServers, props);
     }
 
