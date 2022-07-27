@@ -58,7 +58,6 @@ public class KafkaStreamsApplication {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> streams.forEach(AbstractKafkaStream::close)));
     }
 
-    // TODO -> change to be more flexible
     private Properties baseProperties(final String bootstrapServers) {
         Properties properties = new Properties();
         properties.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);

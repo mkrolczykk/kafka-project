@@ -1,9 +1,22 @@
 ## Table of contents
+- [Project modules](#project-modules)
 - [Requirements](#requirements)
-- [Project Components](#project-components)
 - [Usage](#usage)
 - [Status](#status)
 - [Contact](#contact)
+
+## Project modules
+```
+.
+├── docker-compose          # docker files and kafka cluster containers data
+├── github-accounts-app     # github accounts analyzer app
+├── kafka-cluster           # files, CLI commands and scripts related with kafka cluster 
+├── kafka-connect           # files, CLI commands and scripts related with kafka connect
+├── kafka-sql-metrics       # files, CLI commands and scripts related with KSQL
+├── kafka-stream-metrics    # kafka streams metrics app
+├── modules-tests           # e2e tests for modules of the project
+.
+```
 
 ## Requirements
 * Unix-like operating system
@@ -11,15 +24,6 @@
 * Docker
 * JDK with Java 8 or higher
 * Apache Maven
-
-## Project Components
-├── docker-compose          # docker files and kafka cluster containers data <br />
-├── github-accounts-app     # github accounts analyzer app <br />
-├── kafka-cluster           # files, CLI commands and scripts related with kafka cluster <br />
-├── kafka-connect           # files, CLI commands and scripts related with kafka connect <br />
-├── kafka-sql-metrics       # files, CLI commands and scripts related with KSQL <br />
-├── kafka-stream-metrics    # kafka streams metrics app <br />
-├── modules-tests           # e2e tests for modules of the project <br />
 
 ## Usage
 

@@ -42,7 +42,5 @@ bash "$SCRIPT_DIR/processors/total_number_of_commits.sh" $KSQL_BOOTSTRAP_SERVER
 # Total number of committers
 bash "$SCRIPT_DIR/processors/total_number_of_committers.sh" $KSQL_BOOTSTRAP_SERVER
 
-# TODO -> (Optionally) Suggest four new metrics and implement them, be ready to explain their value
-
 exit 0
 
