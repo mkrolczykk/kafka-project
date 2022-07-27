@@ -29,7 +29,7 @@
 
 To run project, follow these steps: <br />
 
-1. Open terminal and clone the project from github repository <br /> <br />
+1. Open terminal and clone the project from github repository <br />
    
 2. Go to project root directory
 ```
@@ -37,7 +37,7 @@ $ cd <project_folder>
 ```
 where <project_folder> is a path to project root directory <br />
 
-3. Download and install all required project dependencies (use Maven) <br /> <br />
+3. Download and install all required project dependencies (use Maven) <br />
    
 4. Build .jar files for producer and consumer apps (github-accounts-app and kafka-stream-metrics)
 ```
@@ -70,11 +70,11 @@ $ cp ./github-accounts.json ./docker-compose/containers-data/kafka-connect/data/
 ```
 Kafka connect source connector should detect 'github-accounts.json' file, read data from it, and run the pipeline. <br /> <br />
 
-All metrics will be written under '<root_project_directory>/docker-compose/containers-data/kafka-connect/data/' folder (as JSON files). <br />
+All metrics will be written under '<root_project_directory>/docker-compose/containers-data/kafka-connect/data/' folder (as JSON files). <br />  <br />
 
 ### Ending application
 
-1. Stop all producers and consumers apps <br /> <br />
+1. Stop all producers and consumers apps <br />
    
 2. Go to 'docker-compose' directory
 ```
