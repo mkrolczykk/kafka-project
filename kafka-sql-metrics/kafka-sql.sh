@@ -29,7 +29,7 @@ then
     exit 2
 fi
 
-# Be sure kafka-connect container and kafka-connect-rest are up
+# Be sure ksql node is up and working
 until [ "`docker inspect -f {{.State.Running}} ${CONTAINER_NAME}`"=="true" ]; do
     echo "INFO: Checking '$CONTAINER_NAME' container status..."
     sleep 1;
