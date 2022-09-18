@@ -145,10 +145,10 @@
                         <id>up</id>
                         <phase>pre-integration-test</phase>
                         <goals>
-                            <goal>down</goal>
                             <goal>up</goal>
                         </goals>
                         <configuration>
+                            <envFile>${project.basedir}/src/main/resources/.env</envFile>
                             <composeFile>${project.basedir}/src/main/resources/docker-compose.yml</composeFile>
                             <detachedMode>true</detachedMode>
                         </configuration>
@@ -160,6 +160,7 @@
                             <goal>down</goal>
                         </goals>
                         <configuration>
+                            <envFile>${project.basedir}/src/main/resources/.env</envFile>
                             <composeFile>${project.basedir}/src/main/resources/docker-compose.yml</composeFile>
                             <removeVolumes>true</removeVolumes>
                         </configuration>
